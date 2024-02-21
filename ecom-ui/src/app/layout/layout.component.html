@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <div class="logo">
+    <mat-icon>shopping_cart</mat-icon>
+    <span>ECOM</span>
+  </div>
+  <div class="buttons">
+    <button
+      mat-button
+      routerLink="/orders"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>receipt</mat-icon>
+      Orders
+    </button>
+    <button
+      mat-button
+      routerLink="/products"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>category</mat-icon>
+      Products
+    </button>
+    <button
+      mat-button
+      routerLink="/clients"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>people</mat-icon>
+      Clients
+    </button>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
