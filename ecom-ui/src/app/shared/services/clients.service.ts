@@ -24,4 +24,9 @@ export class ClientsService {
     const url = `${environment.API_URL}/clients`;
     return this.http.post(url, clientObj, { observe: 'response' });
   }
+
+  deleteClient(clientId: string): Observable<any> {
+    const url = `${environment.API_URL}/clients/delete/${clientId}`;
+    return this.http.delete(url, { observe: 'response' });
+  }
 }
