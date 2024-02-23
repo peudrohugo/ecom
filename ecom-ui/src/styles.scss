@@ -9,6 +9,19 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+input {
+  -moz-appearance: textfield;
+}
+
+.align-right {
+  text-align: right;
+}
+
 .mar-t-1 {
   margin-top: 1rem !important;
 }
