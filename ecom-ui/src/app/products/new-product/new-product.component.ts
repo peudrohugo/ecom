@@ -85,7 +85,7 @@ export class NewProductComponent {
     };
 
     await this.productsService.createProduct(productObj).subscribe({
-      next: (data: HttpResponse<Product[]>) => {
+      next: (data: HttpResponse<Product>) => {
         if (data.status === 201) {
           this.snackBar.open('Produto cadastrado com sucesso!', '', {
             duration: 2500,
