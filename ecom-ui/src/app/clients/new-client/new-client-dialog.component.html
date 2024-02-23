@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>Novo Cliente</h1>
+<div mat-dialog-content>
+  <form [formGroup]="newClientForm">
+    <div class="grid grid-2 mar-t-1">
+      <mat-form-field class="pad-r-1" appearance="outline">
+        <mat-label>CPF</mat-label>
+        <input
+          matInput
+          [formControl]="cpf"
+          mask="000.000.000-00"
+          placeholder="000.000.000-00"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="pad-r-1" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput [formControl]="name" placeholder="Fulano de Tal" />
+      </mat-form-field>
+
+      <mat-form-field class="pad-r-1" appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input
+          matInput
+          [formControl]="phone"
+          mask="(00)00000-0000"
+          placeholder="(00)00000-0000"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="pad-r-1" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="email" placeholder="exemplo@email.com" />
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    class="mar-r-1"
+    color="primary"
+    [mat-dialog-close]="sendToCreate()"
+    aria-label="Button to create new client"
+  >
+    <mat-icon>check</mat-icon>
+    Criar
+  </button>
+  <button
+    mat-raised-button
+    (click)="close()"
+    aria-label="Button to close dialog"
+  >
+    <mat-icon>close</mat-icon>
+    Fechar
+  </button>
+</div>
