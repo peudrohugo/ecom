@@ -1,0 +1,90 @@
+<button
+  mat-button
+  color="primary"
+  (click)="goBack()"
+  aria-label="Button to go to new product page"
+>
+  <mat-icon>arrow_back</mat-icon>
+  Voltar
+</button>
+
+<form [formGroup]="editProductForm">
+  <div class="grid grid-2 mar-t-1">
+    <mat-form-field class="pad-r-1" appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput [formControl]="name" placeholder="Nintendo Switch OLED" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Preço</mat-label>
+      <input
+        matInput
+        [formControl]="price"
+        type="number"
+        class="align-right"
+        placeholder="0"
+      />
+      <span matTextPrefix>R$&nbsp;</span>
+      <span matTextSuffix>.00</span>
+    </mat-form-field>
+  </div>
+
+  <div class="grid grid-3">
+    <mat-form-field class="pad-r-1" appearance="outline" floatLabel="always">
+      <mat-label>Estoque mínimo</mat-label>
+      <input matInput [formControl]="minStock" type="number" placeholder="0" />
+      <span matTextSuffix>1</span>
+      <mat-hint align="end">Quantidade mínima permitida em estoque.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field class="pad-r-1" appearance="outline" floatLabel="always">
+      <mat-label>Estoque máximo</mat-label>
+      <input matInput [formControl]="maxStock" type="number" placeholder="0" />
+      <span matTextSuffix>1</span>
+      <mat-hint align="end">Quantidade máxima permitida em estoque.</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Em Estoque</mat-label>
+      <input matInput [formControl]="inStock" type="number" placeholder="0" />
+      <mat-error *ngIf="inStock.errors?.invalid">{{
+        inStock.errors?.message
+      }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="grid grid-1 mar-t-1">
+    <mat-form-field appearance="outline">
+      <mat-label>Imagem do produto(URL)</mat-label>
+      <input
+        matInput
+        [formControl]="image"
+        placeholder="https://example-url.com/example-image.png"
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="grid grid-1">
+    <mat-form-field appearance="outline">
+      <mat-label>Descrição</mat-label>
+      <textarea
+        matInput
+        [formControl]="description"
+        placeholder="Ex. O console Nintendo Switch é perfeito para você se divertir..."
+      ></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="flex flex-justify-end">
+    <button
+      mat-flat-button
+      class="mar-r-1"
+      color="primary"
+      (click)="confirmEdit()"
+      aria-label="Button to create new product"
+    >
+      <mat-icon>check</mat-icon>
+      Editar
+    </button>
+  </div>
+</form>
