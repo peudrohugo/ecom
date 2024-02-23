@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("clients")
@@ -30,5 +31,11 @@ public class ClientController {
     public ResponseEntity<Client> create(@RequestBody ClientDTO clientObj) throws Exception {
         Client createdClient = clientService.create(clientObj);
         return new ResponseEntity<>(createdClient, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Client>> delete(@PathVariable String id) {
+        Map<String, Client> deletedClient = clientService.delete(id);
+        return new ResponseEntity<>(deletedClient, HttpStatus.OK);
     }
 }
