@@ -21,10 +21,22 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> get(@PathVariable Long id) {
+        ProductDTO productObj = productService.get(id);
+        return new ResponseEntity<>(productObj, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody ProductDTO productObj) throws Exception {
         Product createdProduct = productService.create(productObj);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody ProductDTO productObj) {
+        Product editedProduct = productService.update(id, productObj);
+        return new ResponseEntity<>(editedProduct, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
