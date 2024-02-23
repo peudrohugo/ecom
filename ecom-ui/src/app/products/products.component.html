@@ -7,7 +7,12 @@
   <mat-icon>add</mat-icon>
   Cadastrar Novo Produto
 </button>
-<mat-grid-list cols="4" rowHeight="400px">
+<app-icon-warning
+  *ngIf="products.length === 0"
+  [icon]="'warning'"
+  [message]="'Não há produtos cadastrados!'"
+></app-icon-warning>
+<mat-grid-list *ngIf="products.length > 0" cols="4" rowHeight="400px">
   <mat-grid-tile *ngFor="let product of products">
     <mat-card>
       <mat-card-header class="flex-col mar-b-1">

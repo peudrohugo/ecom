@@ -5,6 +5,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 
 import { DeleteProductDialog, ProductsComponent } from './products.component';
 import { NewProductComponent } from './new-product/new-product.component';
+import { IconWarningComponent } from '../components/icon-warning/icon-warning.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -17,7 +18,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [ProductsComponent, NewProductComponent, DeleteProductDialog],
+  declarations: [
+    ProductsComponent,
+    NewProductComponent,
+    DeleteProductDialog,
+    IconWarningComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
