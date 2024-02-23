@@ -4,6 +4,8 @@ import { Product } from '../shared/entities/product';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -16,7 +18,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +36,17 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  async delete(id: number): Promise<void> {
-    const dialogRef = this.dialog.open(DeleteProductDialog);
+  edit(id: number): void {
+    this.router.navigate(['/', 'products', 'edit-product', `${id}`]);
+  }
+
+  delete(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Remover produto?',
+        message: 'Tem certeza que deseja excluir esse produto?',
+      },
+    });
 
     dialogRef.afterClosed().subscribe((toDelete: boolean) => {
       if (toDelete) {
@@ -52,12 +64,4 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
-}
-
-@Component({
-  selector: 'delete-product-dialog',
-  templateUrl: './delete-product-dialog.html',
-})
-export class DeleteProductDialog {
-  constructor(public dialogRef: MatDialogRef<DeleteProductDialog>) {}
 }

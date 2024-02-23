@@ -30,7 +30,12 @@
         [alt]="'Photo of' + product.description"
       />
       <mat-card-actions>
-        <button mat-button color="primary" aria-label="Button to edit product">
+        <button
+          mat-button
+          color="primary"
+          (click)="edit(product.id!)"
+          aria-label="Button to edit product"
+        >
           <mat-icon>edit</mat-icon>
           Editar
         </button>
