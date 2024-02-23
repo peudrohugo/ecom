@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class IconWarningComponent {
   @Input() icon: string = '';
   @Input() message: string = '';
+  @Input() show: boolean = false;
 }
