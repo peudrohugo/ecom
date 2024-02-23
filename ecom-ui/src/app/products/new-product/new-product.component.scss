@@ -1,0 +1,12 @@
+.align-right {
+  text-align: right;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+input {
+  -moz-appearance: textfield;
+}
