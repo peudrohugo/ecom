@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
     this.loadProducts();
   }
 
-  async loadProducts(): Promise<void> {
+  loadProducts(): void {
     this.products = [];
     this.productsService.listProducts().subscribe({
       next: (data: HttpResponse<Product[]>) => {
