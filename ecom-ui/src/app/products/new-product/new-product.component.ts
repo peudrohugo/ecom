@@ -11,7 +11,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -20,16 +20,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./new-product.component.scss'],
 })
 export class NewProductComponent {
-  name = new FormControl<string>('', [Validators.required]);
-  description = new FormControl<string>('');
-  image = new FormControl<string>('');
-  price = new FormControl<number>(NaN, [Validators.required]);
-  inStock = new FormControl<number>(NaN, [
+  name = new FormControl('', [Validators.required]);
+  description = new FormControl('');
+  image = new FormControl('');
+  price = new FormControl(null, [Validators.required, Validators.min(1)]);
+  inStock = new FormControl(null, [
     Validators.required,
+    Validators.min(1),
     this.validateQuantityInStock(),
   ]);
-  minStock = new FormControl<number>(NaN, [Validators.required]);
-  maxStock = new FormControl<number>(NaN, [Validators.required]);
+  minStock = new FormControl(null, [Validators.required, Validators.min(1)]);
+  maxStock = new FormControl(null, [Validators.required, Validators.min(1)]);
 
   newProductForm: FormGroup = this.formBuilder.group({
     name: this.name,
@@ -83,24 +84,22 @@ export class NewProductComponent {
       maxStock: this.newProductForm.value['maxStock']!,
     };
 
-    await this.productsService
-      .createProduct(productObj)
-      .subscribe((data: HttpResponse<Product>) => {
+    await this.productsService.createProduct(productObj).subscribe({
+      next: (data: HttpResponse<Product[]>) => {
         if (data.status === 201) {
           this.snackBar.open('Produto cadastrado com sucesso!', '', {
             duration: 2500,
           });
           this.router.navigate(['/', 'products']);
-        } else {
-          this.snackBar.open(
-            'Houve um problema ao tentar cadastrar um novo produto!',
-            '',
-            {
-              duration: 2500,
-            }
-          );
         }
-      });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message);
+        this.snackBar.open(
+          'Houve um problema ao tentar cadastrar um novo produto!'
+        );
+      },
+    });
   }
 
   goBack(): void {
