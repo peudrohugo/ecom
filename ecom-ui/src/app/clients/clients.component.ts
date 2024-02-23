@@ -1,76 +1,10 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface Client {
-  name: string;
-  identifier: number;
-  phone: string;
-  email: string;
-}
-
-const ELEMENT_DATA: Client[] = [
-  {
-    identifier: 1,
-    name: 'Pedro Hugo',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 2,
-    name: 'Laura Barboza',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 3,
-    name: 'Alfredo Barboza',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 4,
-    name: 'Ana Luiza',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 5,
-    name: 'Harry Potter',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 6,
-    name: 'Ash Ketchum',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 7,
-    name: 'Gojo Satoru',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 8,
-    name: 'Itadori Yuji',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 9,
-    name: 'Megumi Fushiguro',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-  {
-    identifier: 10,
-    name: 'Suguru Geto',
-    phone: '+55(00)00000-0000',
-    email: 'example@email.com',
-  },
-];
+import { Client } from '../shared/entities/client';
+import { ClientsService } from '../shared/services/clients.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-clients',
@@ -78,13 +12,37 @@ const ELEMENT_DATA: Client[] = [
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['identifier', 'name', 'phone', 'email'];
-  dataSource = new MatTableDataSource<Client>(ELEMENT_DATA);
+  displayedColumns: string[] = ['cpf', 'name', 'phone', 'email'];
+  clients = new MatTableDataSource<Client>([]);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+  constructor(
+    private clientsService: ClientsService,
+    private snackBar: MatSnackBar
+  ) {
+    this.loadClients();
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.clients.paginator = this.paginator;
+  }
+
+  loadClients(): void {
+    this.clients.data = [];
+    this.clientsService.listClients().subscribe({
+      next: (data: HttpResponse<Client[]>) => {
+        if (data.status === 200) this.clients.data = data.body!;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message);
+        this.snackBar.open(
+          'Houve um problema ao tentar listar os clientes cadastrados!',
+          '',
+          {
+            duration: 2500,
+          }
+        );
+      },
+    });
   }
 }
