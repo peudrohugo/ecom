@@ -1,12 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../shared/services/products.service';
 import { Product } from '../shared/entities/product';
-import { HttpResponse } from '@angular/common/http';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -29,12 +25,12 @@ export class ProductsComponent implements OnInit {
 
   async loadProducts(): Promise<void> {
     this.products = [];
-    this.productsService
-      .listProducts()
-      .subscribe((data: HttpResponse<Product[]>) => {
-        console.log(data);
+    this.productsService.listProducts().subscribe({
+      next: (data: HttpResponse<Product[]>) => {
         if (data.status === 200) this.products = data.body!;
-      });
+      },
+      error: (error: HttpErrorResponse) => console.error(error.message),
+    });
   }
 
   async delete(id: number): Promise<void> {
@@ -42,16 +38,17 @@ export class ProductsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((toDelete: boolean) => {
       if (toDelete) {
-        this.productsService
-          .deleteProduct(id)
-          .subscribe((data: HttpResponse<any>) => {
+        this.productsService.deleteProduct(id).subscribe({
+          next: (data: HttpResponse<any>) => {
             if (data.status === 200) {
               this.snackBar.open('Produto removido com sucesso!', '', {
                 duration: 2500,
               });
             }
             this.loadProducts();
-          });
+          },
+          error: (error: HttpErrorResponse) => console.error(error.message),
+        });
       }
     });
   }
