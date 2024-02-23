@@ -21,9 +21,27 @@ public class ProductService {
         return productsObjs;
     }
 
+    public ProductDTO get(Long id) {
+        ProductDTO productObj = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not exist with id: " + id)).convertToDTO();
+        return productObj;
+    }
+
     public Product create(ProductDTO productObj) {
         return productRepository.save(new Product(productObj));
     }
+
+    public Product update(Long id, ProductDTO productObj) {
+        Product productToEdit = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not exist with id: " + id));
+        productToEdit.setName(productObj.getName());
+        productToEdit.setPrice(productObj.getPrice());
+        productToEdit.setMinStock(productObj.getMinStock());
+        productToEdit.setMaxStock(productObj.getMaxStock());
+        productToEdit.setInStock(productObj.getInStock());
+        productToEdit.setImageUrl(productObj.getImageUrl());
+        productToEdit.setDescription(productObj.getDescription());
+        return productRepository.save(productToEdit);
+    }
+
 
     public Map<String, Product> delete(Long id) {
         Product productToDelete = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not exist with id: " + id));
