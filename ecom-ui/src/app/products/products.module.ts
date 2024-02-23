@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { ProductsRoutingModule } from './products-routing.module';
+import { IconWarningModule } from '../components/icon-warning/icon-warning.module';
+import { ConfirmDialogModule } from '../components/confirm-dialog/confirm-dialog.module';
 
 import { ProductsComponent } from './products.component';
 import { NewProductComponent } from './new-product/new-product.component';
-import { IconWarningComponent } from '../components/icon-warning/icon-warning.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
-import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -20,13 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [
-    ProductsComponent,
-    NewProductComponent,
-    IconWarningComponent,
-    EditProductComponent,
-    ConfirmDialogComponent,
-  ],
+  declarations: [ProductsComponent, NewProductComponent, EditProductComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -41,6 +36,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDialogModule,
+    IconWarningModule,
+    ConfirmDialogModule,
   ],
   providers: [],
 })
