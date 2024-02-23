@@ -32,7 +32,16 @@ export class ProductsComponent implements OnInit {
       next: (data: HttpResponse<Product[]>) => {
         if (data.status === 200) this.products = data.body!;
       },
-      error: (error: HttpErrorResponse) => console.error(error.message),
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message);
+        this.snackBar.open(
+          'Houve um problema ao tentar listar os produtos cadastrados!',
+          '',
+          {
+            duration: 2500,
+          }
+        );
+      },
     });
   }
 
