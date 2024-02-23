@@ -1,4 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mar-t-1 {
+  margin-top: 1rem;
+}
+
+.mar-b-1 {
+  margin-bottom: 1rem;
+}
+
+.mar-r-1 {
+  margin-right: 1rem;
+}
+
+.pad-r-1 {
+  padding-right: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-justify-end {
+  justify-content: end;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
